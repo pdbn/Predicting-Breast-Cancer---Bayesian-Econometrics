@@ -1,9 +1,12 @@
-#setwd
+#setwd 
 
 #Load Excel file
 data <- read.csv("BreastCancerData.csv", sep = ",")
+summary(data)
 library(Rlab)
 library("rstan")
+library(corrplot)
+library(ggplot2)
 options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)
 
@@ -13,9 +16,19 @@ rstan_options(auto_write = TRUE)
 #y: dependent variable
 #k: number of parameters
 k <- ncol(data)-1
-x <- as.matrix(data[,2:(k+1)])
+x <- scale(as.matrix(data[,2:(k+1)]))
 y <- data[,1]
 
+#Plot data
+boxplot(x, col = "lightblue", main = "Boxplot of 10 Variables") #outlier
+cor_matrix <- cor(x)
+corrplot(cor_matrix, method = "color", type = "upper", order = "hclust", tl.cex = 0.7, tl.col = "black", addCoef.col = "black") #correlation between variables
+#histogram
+column_names <- colnames(x)
+par(mfrow = c(3, 4))
+for (i in 1:k) {
+  hist(x[, i], main = paste("Histogram of", column_names[i]), col = "lightblue", xlab = "")
+}
 
 #Prior function
 prior_logistic <- function(theta) {
