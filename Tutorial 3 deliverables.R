@@ -16,17 +16,6 @@ k <- ncol(data)-1
 x <- as.matrix(data[,2:(k+1)])
 y <- data[,1]
 
-#Likelihood function
-lik_logistic <- function(theta, k, x, y){
-  intercept <- theta[1]
-  coeff <- theta[2:(k+1)] #9
-  coeff <- matrix(coeff, nrow = length(coeff), ncol = 1)
-  z <- intercept + (x %*% coeff)
-  p <- 1/(1+exp(-z))  
-  lik <- dbern(y, prob = p) 
-  lik1 <- prod(lik)
-  return(lik1)
-} 
 
 #Prior function
 prior_logistic <- function(theta) {
@@ -40,6 +29,18 @@ prior_logistic <- function(theta) {
   return(prior)
 }
 
+#Likelihood function
+lik_logistic <- function(theta, k, x, y){
+  intercept <- theta[1]
+  coeff <- theta[2:(k+1)] #9
+  coeff <- matrix(coeff, nrow = length(coeff), ncol = 1)
+  z <- intercept + (x %*% coeff)
+  p <- 1/(1+exp(-z))  
+  lik <- dbern(y, prob = p) 
+  lik1 <- prod(lik)
+  return(lik1)
+} 
+
 #Posterior function
 post_logistic <-  function(theta, k, x, y){
   #Likelihood
@@ -47,6 +48,7 @@ post_logistic <-  function(theta, k, x, y){
   #Priors
   prior <- prior_logistic(theta)
   posterior <- prior * likelihood
+  #MAYBE SCALE POSTERIOR?
   return(posterior)
 }
 
