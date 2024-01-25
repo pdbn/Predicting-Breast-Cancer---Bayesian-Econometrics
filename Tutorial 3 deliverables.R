@@ -74,7 +74,7 @@ K <- 300# number of debt_income_ratio (theta1) parameters we will check
 theta1_range <- seq(-4, 4, length = K)
 
 thetas <- matrix(0, nrow = K, ncol = (k+1)) #matrix 300x9 all 0s
-thetas[,3] <- theta1_range #range theta1 in column 2 (debt_income_ratio)
+thetas[,2] <- theta1_range #range theta1 in column 2 (debt_income_ratio)
 
 post <- rep(NA, 300)
 lik <- rep(NA,300)
