@@ -106,7 +106,7 @@ plot(theta1_range, prior, type = 'l',col = "blue",xlab = 'Parameter Value', ylab
 plot(theta1_range, lik , type = 'l',col = "green",xlab = 'Parameter Value', ylab = 'Likelihood', main = 'Likelihood vs. Parameter Values')
 plot(theta1_range, post, type = 'l',col = "red",xlab = 'Parameter Value', ylab = 'Posterior', main = 'Posterior vs. Parameter Values')
 #lines(theta1_range, lik, col='green')
-l#ines(theta1_range, post, col = "red")
+#lines(theta1_range, post, col = "red")
 #legend("topright", legend=c("Posterior", "Likelihood"), col=c("blue", "green"), lty=1)
 
 library(rstan)
