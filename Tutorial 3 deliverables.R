@@ -109,10 +109,23 @@ plot(theta1_range, post, type = 'l',col = "red",xlab = 'Parameter Value', ylab =
 l#ines(theta1_range, post, col = "red")
 #legend("topright", legend=c("Posterior", "Likelihood"), col=c("blue", "green"), lty=1)
 
-model <- stan_model("RStan_tutorial2.stan")
+library(rstan)
 
-datalist <- list(n = 499, K = 5, y, x)
-fit = sampling(model, data = datalist, iter = 200, chains = 4)
-print(fit)
-plot(fit)
+# Load your Stan model
+model <- stan_model("Project.stan")
 
+# Define k
+k <- ncol(data) - 1
+
+# Create the data list
+data_list <- list(
+  n = 116,
+  k = k,
+  x = as.matrix(data[, 2:(k + 1)]),
+  y = data[, 1]
+)
+# Run the sampling
+fit <- sampling(model, data = data_list, iter = 5000, warmup = 1000, chains = 4)
+
+pairs(fit)  # Pairs plot
+traceplot(fit)  # Trace plot
