@@ -35,10 +35,11 @@ prior_logistic <- function(theta) {
   p_theta <- c() 
   #prior  thetas normally distributed
   p_theta[1:(k+1)] <- dnorm(theta[1:(k+1)], 0, 1)
+  #normalization
+  sum_p_theta<-sum(p_theta)
+  p_theta<-p_theta/sum_p_theta
+  #joint probability assuming independence
   prior <- prod(p_theta)
-  print(prior)
-  scaled_prior<- prior/sum(prior)
-  print(scaled_prior)
   return(prior)
 }
 
@@ -61,7 +62,9 @@ post_logistic <-  function(theta, k, x, y){
   #Priors
   prior <- prior_logistic(theta)
   posterior <- prior * likelihood
-  #MAYBE SCALE POSTERIOR?
+  #normalization
+  sum_posterior<- sum(posterior)
+  posterior<-posterior/sum_posterior
   return(posterior)
 }
 
