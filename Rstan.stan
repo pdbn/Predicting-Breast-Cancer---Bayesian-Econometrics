@@ -21,11 +21,4 @@ model {
   coeff[2] ~ exponential(coeff[2]);
   for(i in 3:k)
     coeff[i] ~lognormal(0,1);
-  target += if_else(coeff[1] > coeff[9], 1, 0);
 }
-
-
-
-
-
-
