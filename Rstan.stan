@@ -16,12 +16,12 @@ model {
   vector[n] p;
   p= inv_logit(intercept + x*coeff[1:k]);  
   y~bernoulli(p);
-  intercept~normal(0,1);
-  coeff[1]~normal(0,1);
-  coeff[2]~lognormal(0,1);
+  intercept~lognormal(0,1);  
+  coeff[1] ~normal(0,1);
+  coeff[2] ~ exponential(coeff[2])
   for(i in 3:k)
-  coeff[i]~normal(0,1);      
-  
+    coeff[i] ~lognormal(0,1);
+  target += if_else(coeff[1] > coeff[9], 1, 0);
 }
 
 
