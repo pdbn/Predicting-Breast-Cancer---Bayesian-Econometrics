@@ -14,7 +14,7 @@ parameters {
 
 model {
   vector[n] p;
-  p= inv_logit(intercept + x*coeff[1:k]);  
+  p= inv_logit(intercept + x*coeff[1:k]);
   y~bernoulli(p);
   intercept~lognormal(0,1);  
   coeff[1] ~lognormal(0,1);
