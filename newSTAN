@@ -16,9 +16,10 @@ model {
   vector[n] p;
   p= inv_logit(intercept + x*coeff[1:k]);  
   y~bernoulli(p);
-  intercept~lognormal(0,1);  
-  coeff[1] ~lognormal(0,1);
-  coeff[2] ~ exponential(1);
-  for(i in 3:k)
+  intercept~normal(1, 0.5);  
+  coeff[1] ~normal(0,1);
+  coeff[2] ~ normal(0,1);
+  coeff[3] ~normal (2, 0.7);
+  for(i in 4:k)
     coeff[i] ~lognormal(0,1);
 }
